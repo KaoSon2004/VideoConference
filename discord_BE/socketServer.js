@@ -19,13 +19,16 @@ const registerSocket = (server) => {
   });
 
   socketStore.setServerSocketInstance(io);
+
   const emitOnlineUser = () => {
     const onlineUsers = socketStore.getOnlineUsers();
     io.emit("online-users", { onlineUsers });
   };
+
   io.use((socket, next) => {
     authSocket(socket, next);
   });
+
   io.on("connection", (socket) => {
     newConnectionHandler.addNewConnectionHandler(socket, io);
     emitOnlineUser();

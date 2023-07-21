@@ -7,7 +7,6 @@ module.exports = async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email: email.toLowerCase() });
-    console.log(user);
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = jwt.sign(
         {

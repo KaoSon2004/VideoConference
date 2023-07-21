@@ -4,18 +4,14 @@ const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { email, password } = req.body;
     const userExists = await User.exists({ email: email.toLowerCase() });
     if (userExists) {
       return res.status(409).send("User already existed");
     }
     const encryptedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
-      username,
-      email: email.toLowerCase(),
-      password: encryptedPassword,
-    });
+    const user = await User.create(req.body);
     const token = jwt.sign(
       {
         userId: user._id,
