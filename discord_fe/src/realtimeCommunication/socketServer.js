@@ -14,7 +14,6 @@ export const socketServer = ({ token }) => {
   });
   socket.on("connect", () => {
     console.log("connect successfull from client");
-    console.log(socket.id);
   });
   socket.on("friend-invitations", (data) => {
     const { pendingInvitation } = data;

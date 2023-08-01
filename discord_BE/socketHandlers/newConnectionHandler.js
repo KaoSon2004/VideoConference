@@ -7,10 +7,10 @@ function addNewConnectionHandler(socket, io) {
   if (userDetail) {
     socketStore.addNewConnection({
       socketId: socket.id,
-      userId: userDetail?.userId,
+      userId: userDetail?.id,
     });
-    updateFriend.pendingFriendInvitation(userDetail.userId);
-    updateFriend.friends(userDetail.userId);
+    updateFriend.pendingFriendInvitation(userDetail.id);
+    updateFriend.friends(userDetail.id);
 
     setTimeout(() => {
       updateRoom.activeRooms(socket.id);

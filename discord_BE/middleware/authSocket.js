@@ -1,15 +1,18 @@
 const jwt = require("jsonwebtoken");
+const util = require("util");
 
-function authSocket(socket, next) {
+const authSocket = async (socket, next) => {
   const token = socket.handshake.auth?.token;
   try {
-    const decoded = jwt.verify(token, process.env.TOKEN_ENV);
+    const decoded = await util.promisify(jwt.verify)(
+      token,
+      process.env.SECRET_KEY
+    );
     socket.user = decoded;
   } catch (error) {
     const socketError = new Error("Invalid Token");
     next(socketError);
-    //aaaa
   }
   next();
-}
+};
 module.exports = authSocket;
