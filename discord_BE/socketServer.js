@@ -25,8 +25,8 @@ const registerSocket = (server) => {
     io.emit("online-users", { onlineUsers });
   };
 
-  io.use((socket, next) => {
-    authSocket(socket, next);
+  io.use(async (socket, next) => {
+    await authSocket(socket, next);
   });
 
   io.on("connection", (socket) => {

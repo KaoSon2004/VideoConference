@@ -11,6 +11,7 @@ const pendingFriendInvitation = async (userId) => {
       .populate("senderId", "_id, username email");
 
     const activeConnections = socketStore.getActiveConnections(userId);
+
     const io = socketStore.getServerSocketInstance();
     activeConnections.forEach((con) => {
       io.to(con).emit("friend-invitations", {
