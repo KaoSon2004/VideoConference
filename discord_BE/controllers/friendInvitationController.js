@@ -86,7 +86,7 @@ exports.reject = catchAsync(async (req, res, next) => {
   if (invitationExisted) {
     await friendInvitation.findByIdAndDelete(id);
   }
-  console.log(userId);
+
   await updateFriend.pendingFriendInvitation(userId);
   return res.status(200).json({
     status: "success",

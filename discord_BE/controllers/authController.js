@@ -4,6 +4,8 @@ const User = require("../model/user");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const util = require("util");
+const sendEmail = require("../utils/email");
+const crypto = require("crypto");
 function signToken(id) {
   const token = jwt.sign(
     {
@@ -70,4 +72,78 @@ exports.protect = catchAsync(async (req, res, next) => {
   req.user = currentUser;
 
   next();
+});
+
+exports.updateCurrentPassword = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({ _id: req.user._id }).select("+password");
+  if (!user || !user.comparePassword(req.body.currentPassword, user.password)) {
+    return next(new AppError("Your current password is wrong", 400));
+  }
+
+  user.password = req.body.password;
+  user.confirmPassword = req.body.confirmPassword;
+
+  await user.save();
+
+  sendToken(res, 200, user);
+});
+
+exports.forgotYourpassword = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    return next(
+      new AppError("No user with that email, please check again", 404)
+    );
+  }
+  const resetPasswordToken = user.createResetPasswordToken();
+  await user.save({ validateBeforeSave: false });
+  const requestReset = `http://localhost:5002/api/auth/reset-password/${resetPasswordToken}`;
+  const message = `Forgot your password, please click to  ${requestReset} to retrive your password. If you don't, please ignore this email`;
+
+  const emailOptions = {
+    from: "admin@gmail.com",
+    to: user.email,
+    subject: "Reset your password? (Valid in 10min)",
+    message,
+  };
+  try {
+    sendEmail(emailOptions);
+    res.status(200).json({
+      status: "success",
+      message: "token already sent",
+    });
+  } catch (error) {
+    user.resetPasswordToken = undefined;
+    user.resetPasswordTokenExpires = undefined;
+
+    await user.save({ validateBeforeSave: false });
+
+    res.status(500).json({
+      status: "fail",
+      message: "internal server error",
+    });
+  }
+});
+
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  const cryptoPassword = crypto
+    .createHash("sha256")
+    .update(req.params.resetToken)
+    .digest("hex");
+
+  const user = await User.findOne({
+    resetPasswordToken: cryptoPassword,
+    resetPasswordTokenExpires: { $gt: new Date(Date.now()) },
+  });
+  if (!user) {
+    return next(new AppError("Invalid Token Or Token Expired", 400));
+  }
+
+  user.password = req.body.password;
+  user.confirmPassword = req.body.confirmPassword;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordTokenExpires = undefined;
+  await user.save();
+  sendToken(res, 200, user);
 });

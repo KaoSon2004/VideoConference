@@ -1,5 +1,3 @@
-import AuthBox from "../../components/shared/AuthBox";
-import { Typography } from "@mui/material";
 import RegisterPageInput from "../../components/AuthPage/RegisterPageInput";
 import { useState, useEffect } from "react";
 import RegisterPageFooter from "../../components/AuthPage/RegisterPageFooter";
@@ -35,23 +33,24 @@ const Register = () => {
     }
   }, [isLoggedIn]);
   return (
-    <AuthBox>
-      <Typography variant="h5" sx={{ color: "white" }}>
-        Create an account
-      </Typography>
-      <RegisterPageInput
-        mail={mail}
-        setMail={setMail}
-        password={password}
-        setPassword={setPassword}
-        username={username}
-        setUsername={setUsername}
-      />
-      <RegisterPageFooter
-        isFormValid={isFormValid}
-        handleRegister={handleRegister}
-      />
-    </AuthBox>
+    <div></div>
+    // <AuthBox>
+    //   <Typography variant="h5" sx={{ color: "white" }}>
+    //     Create an account
+    //   </Typography>
+    //   <RegisterPageInput
+    //     mail={mail}
+    //     setMail={setMail}
+    //     password={password}
+    //     setPassword={setPassword}
+    //     username={username}
+    //     setUsername={setUsername}
+    //   />
+    //   <RegisterPageFooter
+    //     isFormValid={isFormValid}
+    //     handleRegister={handleRegister}
+    //   />
+    // </AuthBox>
   );
 };
 export default Register;
