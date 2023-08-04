@@ -1,49 +1,35 @@
 import { useEffect, useState } from "react";
-import AuthBox from "../../components/shared/AuthBox";
-import LoginPageFooter from "../../components/AuthPage/LoginPageFooter";
-import LoginPageHeader from "../../components/AuthPage/LoginPageHeader";
-import LoginPageInput from "../../components/AuthPage/LoginPageInput";
+
 import validateLogin from "../../utils/validateLogin";
 import { useDispatch } from "react-redux";
 import * as actions from "../../store/actions";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Theme from "../../assets/Theme";
+import LoginForm from "./LoginForm";
 
 const Login = () => {
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  const [mail, setMail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isFormValid, setIsFormValid] = useState(false);
-  useEffect(() => {
-    setIsFormValid(validateLogin(mail, password));
-  }, [mail, password, setIsFormValid]);
-  const handleLogin = () => {
-    dispatch(
-      actions.login({
-        email: mail,
-        password,
-      })
-    );
-  };
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/dashboard");
     }
   }, [isLoggedIn]);
   return (
-    <AuthBox>
-      <LoginPageHeader />
-      <LoginPageInput
-        mail={mail}
-        setMail={setMail}
-        password={password}
-        setPassword={setPassword}
-      />
-      <LoginPageFooter isFormValid={isFormValid} handleLogin={handleLogin} />
-    </AuthBox>
+    <div className="w-full h-screen relative">
+      <div className="absolute top-0 right-0 w-full h-full z-0">
+        <Theme />
+      </div>
+      <div className="w-[800px] h-[400px] bg-[#36393f] absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] flex p-5">
+        <div className=" pt-4 flex-4">
+          <LoginForm />
+        </div>
+        <div className="flex-3"></div>
+      </div>
+    </div>
   );
 };
 

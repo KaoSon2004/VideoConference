@@ -1,44 +1,22 @@
-import { styled } from "@mui/system";
-const Wrapper = styled("div")({
-  //   marginTop: "40px",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  width: "100%",
-});
-const Label = styled("p")({
-  fontSize: "16px",
-  color: "#b9bbbe",
-  fontWeight: "600",
-  marginBottom: "7px",
-});
-const Input = styled("input")({
-  //   flexGrow: "1",
-  height: "40px",
-  borderRadius: "5px",
-  border: "1px solid #000",
-  color: "#dcddde",
-  background: "#35393f",
-  fontSize: "16px",
-  marginBottom: "12px",
-  padding: "10px"
-});
-
 const InputWithLabel = (props) => {
-  const { value, setValue, placeholder, type, label } = props;
+  const { value, setValue, type, label, required } = props;
   const handleInputChange = (e) => {
     setValue(e.target.value);
   };
   return (
-    <Wrapper>
-      <Label>{label}</Label>
-      <Input
+    <div className="flex flex-col justify-center w-full">
+      <p className="text-sm text-[#b9bbbe] font-bold ml-1 mb-2 mt-3">
+        {label}
+        {required && <span className="ml-1 text-red-600">*</span>}
+      </p>
+
+      <input
+        className="border border-[#000] text-[#dcddde] bg-[#1e1f22] h-10 radius rounded-sm p-[10px] w-full"
         value={value}
         onChange={handleInputChange}
-        placeholder={placeholder}
         type={type}
       />
-    </Wrapper>
+    </div>
   );
 };
 export default InputWithLabel;

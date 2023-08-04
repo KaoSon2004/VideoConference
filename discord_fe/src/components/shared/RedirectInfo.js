@@ -1,26 +1,22 @@
 import { Typography } from "@mui/material";
 import { styled } from "@mui/system";
-const RedirectText = styled("span")({
-  color: "#00AFF4",
-  fontWeight: "500",
-  cursor: "pointer",
-});
+
 const RedirectInfo = ({
   text,
   redirectText,
-  additionalStyle,
+
   handleRedirect,
 }) => {
   return (
-    <Typography
-      sx={{
-        color: "#72767d",
-      }}
-      style={additionalStyle ? additionalStyle : {}}
-    >
+    <p className="text-[#72767d]">
       {text}
-      <RedirectText onClick={handleRedirect}>{redirectText}</RedirectText>
-    </Typography>
+      <span
+        className="text-[#00AFF4] font-thin cursor-pointer text-sm ml-1"
+        onClick={handleRedirect}
+      >
+        {redirectText}
+      </span>
+    </p>
   );
 };
 export default RedirectInfo;

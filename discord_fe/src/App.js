@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 import {
   BrowserRouter,
   Routes,
@@ -13,10 +13,11 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Friends from "./pages/Friends";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const darkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
   },
 });
 
@@ -31,14 +32,15 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-        <div className="App">
-          <Routes>
-            <Route exact path="/login" element={<Login />}></Route>
-            <Route exact path="/register" element={<Register />}></Route>
-            <Route exact path="/dashboard" element={<Dashboard />} />
-            <Route exact path="/friends" element={<Friends />} />
-          </Routes>
-        </div>
+      <div className="App">
+        <Routes>
+          <Route exact path="/login" element={<Login />}></Route>
+          <Route exact path="/register" element={<Register />}></Route>
+          <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/friends" element={<Friends />} />
+          <Route exact path="/forgotpassword" element={<ForgotPassword />} />
+        </Routes>
+      </div>
     </ThemeProvider>
   );
 }
