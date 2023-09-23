@@ -98,7 +98,7 @@ exports.forgotYourpassword = catchAsync(async (req, res, next) => {
   }
   const resetPasswordToken = user.createResetPasswordToken();
   await user.save({ validateBeforeSave: false });
-  const requestReset = `http://localhost:5002/api/auth/reset-password/${resetPasswordToken}`;
+  const requestReset = `http://localhost:3000/reset-password/${resetPasswordToken}`;
   const message = `Forgot your password, please click to  ${requestReset} to retrive your password. If you don't, please ignore this email`;
 
   const emailOptions = {
@@ -129,7 +129,7 @@ exports.forgotYourpassword = catchAsync(async (req, res, next) => {
 exports.resetPassword = catchAsync(async (req, res, next) => {
   const cryptoPassword = crypto
     .createHash("sha256")
-    .update(req.params.resetToken)
+    .update(req.body.token)
     .digest("hex");
 
   const user = await User.findOne({

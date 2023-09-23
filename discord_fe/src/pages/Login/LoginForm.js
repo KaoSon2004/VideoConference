@@ -2,11 +2,12 @@ import { useNavigate } from "react-router-dom";
 import InputWithLabel from "../../components/shared/InputWithLabel";
 import RedirectInfo from "../../components/shared/RedirectInfo";
 import { useEffect, useState } from "react";
-import validateLogin from "../../utils/validateLogin";
-import { useDispatch } from "react-redux";
+import { validateLogin } from "../../utils/validateLogin";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions";
 
-function LoginForm() {
+function LoginForm({ setOpenModal }) {
+  const { login_error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -15,12 +16,11 @@ function LoginForm() {
   const [isFormValid, setIsFormValid] = useState(false);
   useEffect(() => {
     setIsFormValid(validateLogin(email, password));
-    console.log(isFormValid);
   }, [email, password, setIsFormValid]);
   const handleLogin = () => {
     dispatch(
       actions.login({
-        email: email,
+        email,
         password,
       })
     );
@@ -55,14 +55,29 @@ function LoginForm() {
           required={true}
         />
       </div>
+      {/* ErrorMessage */}
+      {login_error && (
+        <div>
+          <span className="text-red-600">Invalid Username Or Password</span>
+        </div>
+      )}
       {/* Forget password */}
       <div className="mt-3">
-        <RedirectInfo
+        {/* <RedirectInfo
           text=""
           redirectText="Forgot your password?"
           handleRedirect={() => navigate("/forgotpassword")}
-        />
+        /> */}
+        <div
+          className="text-[#00AFF4] font-thin cursor-pointer text-sm ml-1"
+          onClick={() => {
+            setOpenModal(true);
+          }}
+        >
+          Forgot your password?
+        </div>
       </div>
+
       {/* Login Button */}
       <div className="mt-4">
         <button

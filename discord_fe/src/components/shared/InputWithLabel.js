@@ -1,5 +1,5 @@
 const InputWithLabel = (props) => {
-  const { value, setValue, type, label, required } = props;
+  const { value, setValue, type, label, required, placeholder } = props;
   const handleInputChange = (e) => {
     setValue(e.target.value);
   };
@@ -15,6 +15,7 @@ const InputWithLabel = (props) => {
         value={value}
         onChange={handleInputChange}
         type={type}
+        placeholder={placeholder ?? ""}
       />
     </div>
   );
