@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { validateLogin } from "../../utils/validateLogin";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions";
+import AuthButton from "../../components/shared/AuthButton";
 
 function LoginForm({ setOpenModal }) {
   const { login_error } = useSelector((state) => state.auth);
@@ -80,17 +81,7 @@ function LoginForm({ setOpenModal }) {
 
       {/* Login Button */}
       <div className="mt-4">
-        <button
-          onClick={handleLogin}
-          className={`w-full ${
-            !isFormValid && "opacity-70"
-          }  bg-[#5865F2] text-white text-md py-1 rounded-sm ${
-            isFormValid && "hover:opacity-80"
-          } `}
-          disabled={!isFormValid}
-        >
-          Login
-        </button>
+        <AuthButton isFormValid={isFormValid} onClick={handleLogin} text ="Login"/>
       </div>
 
       <div>

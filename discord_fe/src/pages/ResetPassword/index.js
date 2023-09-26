@@ -34,7 +34,6 @@ const ResetPassword = () => {
             }
             try {
                 const res = await apis.resetPassword(payload);
-                console.log(res);
                 if(res.status == 200) {
                     setSuccess(true);
                 }

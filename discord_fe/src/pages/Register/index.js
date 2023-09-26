@@ -5,35 +5,14 @@ import * as actions from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import validateRegister from "../../utils/validateRegister";
+import AuthBox from "../Share/AuthBox";
+import RegisterForm from "./RegisterForm";
 const Register = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const { isLoggedIn } = useSelector((state) => state.auth);
-
-  const [mail, setMail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [isFormValid, setIsFormValid] = useState(false);
-  const handleRegister = async () => {
-    dispatch(
-      actions.register({
-        username,
-        email: mail,
-        password,
-      })
-    );
-  };
-  useEffect(() => {
-    setIsFormValid(validateRegister(mail, password, username));
-  }, [mail, password, username, setIsFormValid]);
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/dashboard");
-    }
-  }, [isLoggedIn]);
   return (
-    <div></div>
+    <AuthBox>
+      <RegisterForm />
+    </AuthBox>
     // <AuthBox>
     //   <Typography variant="h5" sx={{ color: "white" }}>
     //     Create an account
