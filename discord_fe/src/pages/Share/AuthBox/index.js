@@ -1,20 +1,28 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Theme from "../../../assets/Theme";
 import ForgotPassword from "../../../components/Forgotpassword";
 import ModalWrapper from "../../../components/shared/ModalWrapper";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import * as actions from "../../../store/actions";
+/*
+* Auth Box Template For Login And Register
+*/
 function AuthBox({children, isLoginPage = false, isRegPage = false}) {
     const { isLoggedIn } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const [openModal, setOpenModal] = useState(false);
-  
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(actions.setOpenForgotpasswordModel(setOpenModal));
+    }, [])
     useEffect(() => {
       if (isLoggedIn) {
         navigate("/dashboard");
       }
     }, [isLoggedIn]);
+
+    
     return (
         <div className="w-full h-screen relative">
             {openModal && (

@@ -13,23 +13,6 @@ const Register = () => {
     <AuthBox>
       <RegisterForm />
     </AuthBox>
-    // <AuthBox>
-    //   <Typography variant="h5" sx={{ color: "white" }}>
-    //     Create an account
-    //   </Typography>
-    //   <RegisterPageInput
-    //     mail={mail}
-    //     setMail={setMail}
-    //     password={password}
-    //     setPassword={setPassword}
-    //     username={username}
-    //     setUsername={setUsername}
-    //   />
-    //   <RegisterPageFooter
-    //     isFormValid={isFormValid}
-    //     handleRegister={handleRegister}
-    //   />
-    // </AuthBox>
   );
 };
 export default Register;

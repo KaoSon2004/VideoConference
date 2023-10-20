@@ -7,8 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions";
 import AuthButton from "../../components/shared/AuthButton";
 
-function LoginForm({ setOpenModal }) {
+function LoginForm() {
   const { login_error } = useSelector((state) => state.auth);
+  const {setOpenForgotPasswordModal: setOpenModal} = useSelector(state => state.action);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");

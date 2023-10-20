@@ -8,6 +8,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import chatReducer from "./chatReducer";
 import roomReducer from "./roomReducer";
+import actionReducer from "./actionReducer";
 
 const persisConfig = {
   storage,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   friend: friendReducer,
   chat: chatReducer,
   room: roomReducer,
+  action: actionReducer,
 });
 const store = createStore(
   rootReducer,
