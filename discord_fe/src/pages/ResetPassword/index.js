@@ -40,7 +40,6 @@ const ResetPassword = () => {
             } catch (error) {
                 setSuccess(false);
                 setFailReset(true);
-                console.log(error)
             }
         }
     }

@@ -7,6 +7,7 @@ import InputWithLabel from "../../components/shared/InputWithLabel";
 import RedirectInfo from "../../components/shared/RedirectInfo";
 import AuthButton from "../../components/shared/AuthButton";
 import DateInputs from "./DateInputs";
+import validateDate from "../../utils/validateDate";
 
 function RegisterForm () {
     const dispatch = useDispatch();
@@ -17,6 +18,9 @@ function RegisterForm () {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
+    const [day, setDay] = useState("");
+    const [month, setMonth] = useState("");
+    const [year, setYear] = useState("");
     const [isFormValid, setIsFormValid] = useState(false);
     const handleRegister = async () => {
       dispatch(
@@ -28,8 +32,10 @@ function RegisterForm () {
       );
     };
     useEffect(() => {
-      setIsFormValid(validateRegister(email, password, username));
-    }, [email, password, username, setIsFormValid]);
+
+        setIsFormValid(validateRegister(email, password, username) && validateDate(day, month, year));
+    
+      }, [email, password, username, setIsFormValid, day, year, month]);
     useEffect(() => {
       if (isLoggedIn) {
         navigate("/dashboard");
@@ -46,10 +52,10 @@ function RegisterForm () {
         </div>
 
         <div>
-            <InputWithLabel label={"Email"} required = {true} />
-            <InputWithLabel label ={"Display Name"} />
-            <InputWithLabel label={"Password"} required = {true} />
-            <DateInputs />
+            <InputWithLabel setValue={setEmail} label={"Email"} required = {true} />
+            <InputWithLabel setValue={setUsername} label ={"Display Name"} required={true} />
+            <InputWithLabel setValue={setPassword} label={"Password"} required = {true} type='password' />
+            <DateInputs setDay={setDay} setMonth={setMonth} setYear={setYear}/>
         </div>
         <div className="mt-6">
             <AuthButton onClick={handleRegister} text="Register" isFormValid={isFormValid}/>
