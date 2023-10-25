@@ -17,6 +17,7 @@ function RegisterForm () {
   
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [username, setUsername] = useState("");
     const [day, setDay] = useState("");
     const [month, setMonth] = useState("");
@@ -28,13 +29,13 @@ function RegisterForm () {
           username,
           email,
           password,
+          confirmPassword,
+          dob: new Date(`${year}-${month}-${day}`)
         })
       );
     };
     useEffect(() => {
-
         setIsFormValid(validateRegister(email, password, username) && validateDate(day, month, year));
-    
       }, [email, password, username, setIsFormValid, day, year, month]);
     useEffect(() => {
       if (isLoggedIn) {
@@ -55,6 +56,7 @@ function RegisterForm () {
             <InputWithLabel setValue={setEmail} label={"Email"} required = {true} />
             <InputWithLabel setValue={setUsername} label ={"Display Name"} required={true} />
             <InputWithLabel setValue={setPassword} label={"Password"} required = {true} type='password' />
+            <InputWithLabel setValue={setConfirmPassword} label={"Confirm Password"} required type='password' />
             <DateInputs setDay={setDay} setMonth={setMonth} setYear={setYear}/>
         </div>
         <div className="mt-6">

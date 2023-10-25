@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide us an username"],
   },
+  dob: {
+    type: Date,
+    required: [true, "Please provide us your dob"],
+  },
   password: {
     type: String,
     required: [true, "Please provide password"],
