@@ -13,8 +13,7 @@ function RegisterForm () {
     const dispatch = useDispatch();
     const navigate = useNavigate();
   
-    const { isLoggedIn } = useSelector((state) => state.auth);
-  
+    const { isLoggedIn, register_error } = useSelector((state) => state.auth);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -23,16 +22,19 @@ function RegisterForm () {
     const [month, setMonth] = useState("");
     const [year, setYear] = useState("");
     const [isFormValid, setIsFormValid] = useState(false);
+   
     const handleRegister = async () => {
-      dispatch(
-        actions.register({
-          username,
-          email,
-          password,
-          confirmPassword,
-          dob: new Date(`${year}-${month}-${day}`)
-        })
-      );
+        dispatch(
+          actions.register({
+            username,
+            email,
+            password,
+            confirmPassword,
+            dob: new Date(`${year}-${month}-${day}`)
+          })
+        );
+
+
     };
     useEffect(() => {
         setIsFormValid(validateRegister(email, password, username) && validateDate(day, month, year));
@@ -42,12 +44,13 @@ function RegisterForm () {
         navigate("/dashboard");
       }
     }, [isLoggedIn]);
+
     return (
 
     <div className="w-full">
         {/* Login Header */}
         <div className="text-center">
-            <p className="text-[#b9bbbe]">
+            <p className="text-[#393a3c]">
             Create An Account
             </p>
         </div>
@@ -61,6 +64,11 @@ function RegisterForm () {
         </div>
         <div className="mt-6">
             <AuthButton onClick={handleRegister} text="Register" isFormValid={isFormValid}/>
+            {register_error && (
+              <div>
+                <span className="text-red-600">Gmail already exist</span>
+              </div>
+            )}
             <RedirectInfo
                 redirectText="Already have an account ?"
                 handleRedirect={() => navigate("/login")}
