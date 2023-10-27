@@ -3,7 +3,7 @@ import FriendList from "./FriendList";
 
 function FriendSidebar() {
   return (
-    <div className="w-[300px] h-full flex flex-col items-center bg-[#2F3136]">
+    <div className="w-[250px] h-full flex flex-col items-center bg-[#2F3136]">
       <AddFriendButton />
       <FriendList />
     </div>

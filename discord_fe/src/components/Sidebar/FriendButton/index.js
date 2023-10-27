@@ -1,28 +1,18 @@
 import { Button, Tooltip } from "@mui/material";
-import PeopleIcon from "@mui/icons-material/People";
 import { useNavigate } from "react-router-dom";
-
+import icons from "../../../utils/icons";
+const { GiThreeFriends,} = icons
 function FriendButton() {
   const navigate = useNavigate();
   return (
-    <Tooltip title={<h3>Bạn bè</h3>} placement="right" arrow>
-      <Button
+    
+      <button
         onClick={() => navigate("/friends")}
-        style={{
-          width: "48px",
-          height: "48px",
-          minHeight: "0",
-          color: "white",
-          borderRadius: "15px",
-          background: "linear-gradient(to left top,#6f3fcf,#1f78ff)",
-          minWidth: "0",
-          marginTop: "10px",
-          padding: "0",
-        }}
+        className="w-[48px] h-[48px] text-white text-2xl mx-auto rounded-2xl bg-gradient-to-tl from-[#6f3fcf] to-[#1f78ff] mt-3"
       >
-        <PeopleIcon />
-      </Button>
-    </Tooltip>
+        <GiThreeFriends className="inline-block" />
+      </button>
+   
   );
 }
 

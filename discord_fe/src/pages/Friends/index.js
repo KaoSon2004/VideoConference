@@ -16,7 +16,7 @@ const Friends = () => {
     <div className="flex w-full h-screen">
       <Sidebar />
       <FriendActionSideBar/>
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col flex-1">
         <Appbar />
         <Invitations />
       </div>
