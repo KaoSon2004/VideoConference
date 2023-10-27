@@ -7,6 +7,7 @@ const initState = {
   isLoggedIn: false,
   username: null,
   login_error: false,
+  register_error: false,
 };
 
 const authReducer = (state = initState, action) => {
@@ -40,10 +41,18 @@ const authReducer = (state = initState, action) => {
         email: action.data.email,
         username: action.data.username,
         login_error: false,
+        register_error: false,
       };
     case actionTypes.REGISTER_FAIL:
       return {
         ...state,
+        userId: null,
+        isLoggedIn: false,
+        email: null,
+        token: null,
+        username: null,
+        login_error: false,
+        register_error: true,
       };
     case actionTypes.LOGOUT:
       return {
@@ -54,6 +63,7 @@ const authReducer = (state = initState, action) => {
         token: null,
         username: null,
         login_error: false,
+        register_error: false,
       };
     default: {
       return state;

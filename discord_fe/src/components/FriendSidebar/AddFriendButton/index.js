@@ -1,52 +1,32 @@
-import { styled } from "@mui/system";
 import { useState } from "react";
-import CustomPrimaryButton from "../../shared/CustomPrimaryButton";
 import AddFriendDialog from "../AddFriendDialog";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { IconButton, TextField } from "@mui/material";
-import { useSelector } from "react-redux";
-// const additionalStyles = {
-//   marginTop: "10px",
-//   backgroundColor: "#3ba55d",
-// };
-const Wrapper = styled("div")({
-  width: "100%",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: "10px 12px",
-});
+
+import { IconButton } from "@mui/material";
+import icons from "../../../utils/icons";
+const {AiOutlineSearch, IoPersonAddOutline} = icons;
+
 function AddFriendButton() {
   const [open, setIsOpen] = useState(false);
   const handleAddFriend = () => {
     setIsOpen(true);
-    console.log(open);
   };
   return (
-    <Wrapper alignItems="center">
-      <TextField
-        variant="outlined"
-        size="small"
-        placeholder="Tìm kiếm"
-        sx={{
-          input: {
-            color: "white",
-            outline: "none",
-            backgroundColor: "#eaedf0",
-            color: "#081c36",
-            borderRadius: "8px",
-          },
-        }}
-      />
-      <IconButton title="Thêm bạn" onClick={handleAddFriend} sx={{marginLeft: "6px"}}>
-        <PersonAddIcon
-          sx={{
-            color: "white",
-          }}
-        />
-      </IconButton>
-      <AddFriendDialog openDialog={open} handleClose={() => setIsOpen(false)} />
-    </Wrapper>
+    <div className="w-full text-base">
+      <div  className="w-full flex justify-center items-center px-5 py-3">
+        <div className="relative  w-3/4  text-[#081c36] bg-[#eaedf0] pl-[30px] pr-3 rounded-sm ">
+           <input className="outline-none w-full py-1  bg-transparent border-none" placeholder="Tìm kiếm" />
+           <span className="items-center inline-flex w-[28px] h-full absolute top-1/2 left-1 translate-y-[-50%] bg-transparent cursor-pointer ">
+              <AiOutlineSearch  />
+           </span>
+          
+        </div>
+        <span title="Thêm bạn" onClick={handleAddFriend} className="ml-4 cursor-pointer">
+          <IoPersonAddOutline />
+        </span>
+        <AddFriendDialog openDialog={open} handleClose={() => setIsOpen(false)} />
+      </div>
+
+    </div>
   );
 }
 
